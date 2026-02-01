@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 
 // ============================================
 // CERCA
@@ -1373,6 +1374,7 @@ export default function CercaProximityLens() {
           animation: fadeIn 0.8s ease-out forwards;
         }
       `}</style>
+      <Analytics />
     </div>
   );
 }
