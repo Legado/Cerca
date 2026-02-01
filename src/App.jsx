@@ -3,7 +3,15 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 // ============================================
 // CERCA: THE PROXIMITY LENS
 // Mapa Visual de Estrategia Creativa
-// Juan de Dios Llamas García - Pensamiento Creativo - UTAMED
+// Autor: Juan de Dios Llamas García
+// Asignatura: Pensamiento Creativo - UTAMED
+//
+// NOTA PARA EL CURIOSO (O PROFESOR) QUE MIRA EL CÓDIGO:
+// Sí, esto ha salido de mis dedos y mis neuronas.
+// Si encuentras un bug, llamémoslo "feature de creatividad caótica no documentada".
+// Y si estás aquí buscando talento que mezcle estrategia y código:
+// https://www.linkedin.com/in/juandyllamas/
+// ¡Un saludo!
 // ============================================
 
 // ============================================
@@ -19,8 +27,12 @@ const IntroModal = ({ onEnter }) => (
       <p className="text-amber-500 text-[10px] tracking-[0.3em] uppercase mb-8 relative z-10">Infografía Interactiva Web-App</p>
       
       <div className="text-gray-300 space-y-4 text-sm leading-relaxed mb-8 relative z-10 font-light">
-        <p>Bienvenido a esta experiencia digital diseñada por <br/><strong className="text-white font-normal">Juan de Dios Llamas</strong>.</p>
-        <p>Este proyecto forma parte de mi estudio en <br/><span className="text-amber-200">Pensamiento Creativo</span>.</p>
+        <p>Bienvenido a esta experiencia digital diseñada y programada por <br/><strong className="text-white font-normal">Juan de Dios Llamas</strong>.</p>
+        <div className="py-2 px-4 bg-white/5 rounded-lg border border-white/10 mx-auto inline-block">
+          <p className="text-amber-100 font-medium">Opción B</p>
+          <p className="text-[10px] uppercase tracking-wider text-gray-400">RUTA de Aprendizaje Autónomo</p>
+        </div>
+        <p className="mt-2"><span className="text-amber-200">Pensamiento Creativo</span></p>
         <p className="text-xs text-gray-500 mt-4">Explora el mapa estratégico navegando por los nodos interactivos.</p>
       </div>
       
@@ -45,7 +57,7 @@ const ProximityMapBackground = ({ activeSection, intensity = 0 }) => {
   const timeRef = useRef(0);
   const cityParticlesRef = useRef({ pedestrians: [], streets: { horizontal: [], vertical: [] } });
   const journeyParticlesRef = useRef([]);
-  // Generar puntos exteriores una sola vez
+  // Generar puntos exteriores una sola vez (optimization trick by Juandy)
   const exteriorPointsRef = useRef([]);
 
   useEffect(() => {
@@ -54,7 +66,7 @@ const ProximityMapBackground = ({ activeSection, intensity = 0 }) => {
     let width = canvas.width = window.innerWidth;
     let height = canvas.height = window.innerHeight;
 
-    // Inicializar puntos exteriores (Originales + 15 extra)
+    // Inicializar puntos exteriores (Originales + 15 extra para más ambiente)
     if (exteriorPointsRef.current.length === 0) {
       const points = [
         { angle: 0.2, distance: 0.95, baseSize: 5 },
@@ -64,7 +76,7 @@ const ProximityMapBackground = ({ activeSection, intensity = 0 }) => {
         { angle: 4.8, distance: 0.94, baseSize: 5.5 },
         { angle: 5.9, distance: 1.02, baseSize: 3.2 },
       ];
-      // Generar 15 puntos extra aleatorios
+      // Generar 15 puntos extra aleatorios (más caos controlado)
       for(let i = 0; i < 15; i++) {
         points.push({
           angle: Math.random() * Math.PI * 2,
@@ -78,8 +90,8 @@ const ProximityMapBackground = ({ activeSection, intensity = 0 }) => {
 
     // =============================================
     // SISTEMA DE CIUDAD: Calles, coches y peatones
+    // Intentando replicar la eficiencia de Cerdà en unas pocas líneas de código.
     // =============================================
-    // Definir el grid de calles (como Barcelona)
     const createCityStreets = (radius) => {
       const streets = { horizontal: [], vertical: [] };
       const spacing = 15; // Espacio entre calles (reducido de 20 para más densidad)
@@ -97,7 +109,7 @@ const ProximityMapBackground = ({ activeSection, intensity = 0 }) => {
       return streets;
     };
 
-    // Crear peatones (más pequeños, más lentos, movimiento menos lineal)
+    // Crear peatones (digitales, no se cansan, no se quejan)
     const createPedestrian = (streets, radius, centerX, centerY) => {
       // Seleccionar UNA calle aleatoria
       const isHorizontal = Math.random() > 0.5;
@@ -125,7 +137,7 @@ const ProximityMapBackground = ({ activeSection, intensity = 0 }) => {
         speed: 0.4 + Math.random() * 0.5, // Velocidad variable (aumentada para más dinamismo)
         size: 1.2,
         maxExtent: maxExtent,
-        // Wobble sutil en la acera
+        // Wobble sutil en la acera (quizás han tomado algo)
         wobblePhase: Math.random() * Math.PI * 2,
         wobbleSpeed: 0.06 + Math.random() * 0.04,
         alive: true
@@ -205,6 +217,7 @@ const ProximityMapBackground = ({ activeSection, intensity = 0 }) => {
 
     initializeParticles();
 
+    // Aquí ocurre la magia del canvas (o el desastre, según el día)
     const animate = () => {
       timeRef.current += 0.016;
       const t = activeSection >= 0 ? Math.min(1, intensity) : 0;
