@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 
 // ============================================
-// CERCA: THE PROXIMITY LENS
+// CERCA
 // Mapa Visual de Estrategia Creativa
 // Autor: Juan de Dios Llamas García
 // Asignatura: Pensamiento Creativo - UTAMED
@@ -665,8 +665,13 @@ const NavNode = ({ label, iconKey, active, onClick, angle, distance }) => {
   return (
     <div className={`absolute transform -translate-x-1/2 -translate-y-1/2 z-40 transition-all duration-500 ease-out ${active ? 'scale-110' : 'scale-100 hover:scale-105'}`} style={{ left: `${x}%`, top: `${y}%` }}>
       <button onClick={onClick} className="relative group">
-        <div className={`relative w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-500 ${active ? 'bg-white/10 border border-white/40 shadow-lg' : 'bg-white/[0.03] border border-white/[0.15] hover:border-white/30 hover:bg-white/[0.06]'}`} style={{ backdropFilter: 'blur(8px)' }}>
-          <span className={`transition-colors duration-300 ${active ? 'text-white' : 'text-white/50'}`}>
+        <div className={`relative w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-500 
+          ${active 
+            ? 'bg-amber-500/20 border-2 border-amber-400/80 shadow-[0_0_30px_rgba(245,158,11,0.5)]' 
+            : 'bg-white/10 border border-white/40 shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:bg-white/20 hover:border-white/70 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]'
+          }`} 
+          style={{ backdropFilter: 'blur(8px)' }}>
+          <span className={`transition-colors duration-300 ${active ? 'text-white drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]' : 'text-white/90 group-hover:text-white'}`}>
             {NodeIcons[iconKey]}
           </span>
         </div>
@@ -674,11 +679,11 @@ const NavNode = ({ label, iconKey, active, onClick, angle, distance }) => {
       
       {/* Etiqueta y Call to Action debajo del nodo */}
       <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 text-center pointer-events-none w-32">
-        <p className={`text-[10px] md:text-xs font-medium tracking-wider uppercase transition-colors duration-300 ${active ? 'text-white' : 'text-white/40'}`}>
+        <p className={`text-[10px] md:text-xs font-medium tracking-wider uppercase transition-colors duration-300 ${active ? 'text-white text-shadow-sm' : 'text-white/70 font-semibold'}`}>
           {label}
         </p>
         {!active && (
-          <p className="text-amber-500/60 text-[9px] mt-0.5 animate-pulse whitespace-nowrap">
+          <p className="text-amber-400 font-bold text-[9px] mt-0.5 animate-pulse whitespace-nowrap drop-shadow-md">
             Haz clic aquí
           </p>
         )}
